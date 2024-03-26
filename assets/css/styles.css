@@ -1,0 +1,46 @@
+
+
+/* Estilos para pantallas más pequeñas */
+@media only screen and (max-width: 600px) {
+    #homeContent {
+        padding: 20px; /* Reducir el espacio alrededor del contenido */
+    }
+
+    #homeContent header {
+        background-color: blue; /* Cambiar el color de fondo del encabezado */
+    }
+
+    .headerContent .navContent {
+        display: none; /* Ocultar la navegación para dispositivos móviles */
+    }
+}
+
+/* Estilos para pantallas más grandes */
+@media only screen and (min-width: 601px) {
+    /* css gebérico del home */
+    #homeContent{
+        background-color: yellow;
+        padding: 40px;
+    }
+
+    #homeContent header{ /* No se puede usar su class*/
+        background-color: red;
+    }
+
+    .headerContent .navContent{
+        background-color: green;
+        
+    }
+
+    .headerContent .navContent ul{
+        list-style: none;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .headerContent .navContent li{
+        margin: 5px;
+        background-color: white;
+    }
+
+}
