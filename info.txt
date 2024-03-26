@@ -1,0 +1,3 @@
+1.- Mover la carpeta de VideoBook3D desde GitHub/ a XAMPP/htdocs y desde la app de GitHub cambiar el root del proyecto
+2.- Crear un index.php que contenga el /home de nuestro website. 
+Hacer un header que contenga: la foto de perfil del usuario y un desplegable con /home,/favoritos,mis puntuaciones,/salir o solo /login si no existe usuario
