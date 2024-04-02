@@ -64,5 +64,5 @@ Si decides utilizar este proyecto, te animo a que añadas una mención o enlace 
 
 
 ## Contacto
-Email: rapazac22@fpcoruna.afundacion.org
+Email: ricardoapazacueva2000@gmail.com
 
