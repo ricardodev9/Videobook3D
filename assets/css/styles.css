@@ -1,5 +1,13 @@
 
+body {
+    background-image: url(../img/fondo_grande3.jpg); 
+    background-size: cover; /* Escalar la imagen para que cubra todo el elemento html */
+    background-position: center; /* Centrar la imagen de fondo */
+    background-repeat: no-repeat; /* No repetir la imagen de fondo */
+   
+}
 
+  
 /* Estilos para pantallas más pequeñas */
 @media only screen and (max-width: 600px) {
     #homeContent {
@@ -19,28 +27,45 @@
 @media only screen and (min-width: 601px) {
     /* css gebérico del home */
     #homeContent{
-        background-color: yellow;
-        padding: 40px;
+        /*background-color: yellow;*/
+        /* Color de fondo gris con transparencia */
+
+        background-color: rgba(128, 128, 128, 0.6); /* Gris semi-transparente */
+        border-radius: 1em;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17pt;
+        padding: 2em;
+        margin:5em;
     }
 
     #homeContent header{ /* No se puede usar su class*/
-        background-color: red;
+       /* background-color: red;*/
     }
 
     .headerContent .navContent{
-        background-color: green;
+        /*background-color: green;*/
         
     }
 
-    .headerContent .navContent ul{
+    .headerContent .navContent ul {
         list-style: none;
         padding: 10px;
         display: flex;
         justify-content: space-between;
+        width: 100%;
     }
-    .headerContent .navContent li{
+    
+    .headerContent .navContent li {
+        /*background-color: white;*/
+        flex: 1; /* Para que cada elemento ocupe el mismo espacio */
         margin: 5px;
-        background-color: white;
+        text-align: center; /* Centrar el contenido si es necesario */
     }
+    .headerContent .navContent li .select_nav{
+        display:flex ;
+        align-items: center;
+        
+    }
+    
 
 }
