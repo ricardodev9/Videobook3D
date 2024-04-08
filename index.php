@@ -1,3 +1,6 @@
+<?php
+require_once 'conf.php';    
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +97,20 @@
 	</header>
 
 	<section>
+        <?php
         
+        $conn = new mysqli($DB_HOST, $DB_USER ,$DB_PASS , $DB_NAME);//$servername, $username, $password, $dbname
+        // Check connection
+        if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+        }
+
+        $elementos = get_elements_sql($conn);
+        foreach($elementos as $elemento){
+                echo $elemento->getTitulo()."<br>";
+        }
+
+        ?>
 		<article>
 			<header>
 				<h2>Article title</h2>

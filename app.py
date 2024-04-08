@@ -9,27 +9,14 @@ from imdb import IMDbError
 import itertools
 app =  Flask(__name__)
 
-@app.route("/all")
-# def show_elements():
-
-#     # Using the Search movie method
-#     #items = ia.search_movie('Avengers')
-#     try:
-#         # creating an instance of the IMDB()
-#         cine = imdb.IMDb()
-#         #i = ia.get_movie_infoset(items[0].movieID)
-#         #items = cine.search_movie("", results=3)
-#         #items = cine.get_top250_movies()
-#         #return jsonify([item.__dict__ for item in items])
-#         return items
-#     except IMDbError as e:
-#         return e
-
 # home route that returns below text when root url is accessed
-@app.route("/")    
+
 def search_element():
     cine = imdb.IMDb()
-    items = cine.search_movie("")
+    #items = cine.search_movie("")
+    items = cine.search_movie('Avengers')
+    return items
+        
     #items_json = []
     
     # try:
@@ -44,9 +31,18 @@ def search_element():
     #     }
     #     items_json.append(item_info)  
     #     print(item['title'])
-
-    
-    
+@app.route("/")    
+def show_element():
+    elements = search_element()
+    # Recorrer los elementos y obtener su información
+    for element in elements:
+        print("ID:", element.getID())  # Obtener el ID del elemento
+        print("Título:", element['title'])
+        print("Año:", element['year'])
+        print("Tipo:", element['kind'])
+        
+    #     print()  # Imprimir una línea en blanco entre cada elemento
+            
  
 if __name__ == '__main__':  
    app.run(debug=True)
