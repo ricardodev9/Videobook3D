@@ -104,29 +104,34 @@ require_once 'conf.php';
         if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
         }
-
-        $elementos = get_elements_sql($conn);
-        foreach($elementos as $elemento){
-                echo $elemento->getTitulo()."<br>";
-        }
-
         ?>
-		<article>
-			<header>
-				<h2>Article title</h2>
-				<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-			</header>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-		</article>
-		
-		<article>
-			<header>
-				<h2>Article title</h2>
-				<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-			</header>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-		</article>
-		
+        <div class="container">
+            <?php 
+            $elementos = get_elements_sql($conn);
+            foreach($elementos as $elemento){
+                    //echo $elemento->getTitulo()."<br>";
+                ?>
+                    <div class="cellphone-container">
+                        <div class="movie-img">
+                            <img src="<?=$elemento->getImg_url()?>" alt="portada elemento">
+                        </div>
+                        <div class="movie-details">
+                        <h2><?=$elemento->getTitulo()?></h2>
+                        <p class="desc"><?=$elemento->getDescripcionFormatted($elemento->getDescripcion())?></p>
+                        <p class="director">Director: Christopher Nolan</p>
+                        <p class="casting">Stars: Matthew McConaughey, Anne Hathaway, Jessica Chastain</p>
+
+                    </div>
+                    <div class="action-btn">
+                            <a href="#" class="watch-btn">Watch Now</a>
+                        </div>
+                </div>
+                <?php
+            }
+            ?>
+
+        </div>
+
 	</section>
 
     

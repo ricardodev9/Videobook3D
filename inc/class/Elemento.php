@@ -5,17 +5,25 @@
 class Elemento{
     public $id;
     public $titulo;
+    public $descripcion;
     public $anho;
     public $tipo;
+    public $img_url;
     public $fecha_created;
+    
+   
     //we need to know if class attr require date_created
 
-    public function __construct($id,$titulo,$anho,$tipo,$fecha_created) {
+    public function __construct($id,$titulo,$descripcion,$anho,$tipo,$img_url,$fecha_created) {
         $this->id = $id;
         $this->titulo = $titulo;
+        $this->descripcion = $descripcion;
         $this->anho = $anho;
         $this->tipo = $tipo;
+        $this->img_url = $img_url;
         $this->fecha_created = $fecha_created;
+        
+        
     }
 
     /**
@@ -116,6 +124,54 @@ class Elemento{
         $this->fecha_created = $fecha_created;
 
         return $this;
+    }
+
+    /**
+     * Get the value of img_url
+     */ 
+    public function getImg_url()
+    {
+        return $this->img_url;
+    }
+
+    /**
+     * Set the value of img_url
+     *
+     * @return  self
+     */ 
+    public function setImg_url($img_url)
+    {
+        $this->img_url = $img_url;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of descripcion
+     */ 
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set the value of descripcion
+     *
+     * @return  self
+     */ 
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    public function getDescripcionFormatted($descripcion){
+        $desc_formatted = $descripcion;
+        if(strlen($this->descripcion) > 200){
+            $desc_formatted = substr($this->descripcion, 0, 200) . "..."; 
+        }
+        return $desc_formatted;
     }
 }
 ?>

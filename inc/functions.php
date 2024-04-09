@@ -16,7 +16,7 @@ function get_elements_sql($conn){
             // loop over results and create new Element
             while ($row = $result->fetch_assoc()) {
                 // Crear un nuevo objeto Elemento y agregarlo al array
-                $element = new Elemento($row['id'], $row['titulo'], $row['anho'], $row['tipo'], $row['fecha_created']);
+                $element = new Elemento($row['id'], $row['titulo'],$row['descripcion'], $row['anho'], $row['tipo'],$row['img_url'],$row['fecha_created']);
                 $elements[] = $element;
             }
         }

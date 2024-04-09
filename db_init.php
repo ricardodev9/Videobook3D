@@ -14,45 +14,56 @@ if ($conn->connect_error) {
 $sql = "CREATE TABLE IF NOT EXISTS elemento (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(30) NOT NULL,
+    descripcion VARCHAR (300) NOT NULL,
     anho VARCHAR(30) NOT NULL,
     tipo VARCHAR(50),
+    img_url VARCHAR(100) NOT NULL,
     fecha_created DATETIME,
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )";
 
-    if($conn->query($sql) === true ){
+    if($conn->query($sql) === true ){   
       echo "table created<br>";
-      $now = date("Y-m-d H:i:s");
+      //$now = date("Y-m-d H:i:s");
       $elementos = array(
         'elemento1' => array(
             'titulo' => 'The Notebook',
+            'descripcion' => 'Love story between Allie Hamilton and Noah Calhoun and remembered in a nursing home, decades after it happened. Based on the book by Nicholas Sparks.',
             'anho' => '2004',
-            'tipo' => 'película',
-            'fecha_created' => $now,
+            'tipo' => 'movie',
+            'img_url' => 'assets/img/thenotebook_portada.jpg',
+            
         ),
         'elemento2' => array(
             'titulo' => 'Fast and Furious 10',
+            'descripcion' => 'Fast X is an American action film directed by Louis Leterrier and written by Justin Lin and Dan Mazeau. It is the sequel to F9, the tenth main installment and the eleventh installment overall of the Fast & Furious franchise.',
             'anho' => '2023',
-            'tipo' => 'película',
-            'fecha_created' => $now
+            'tipo' => 'movie',
+            'img_url' => 'assets/img/fastx_portada.jpg',
+            
         ),
         'elemento3' => array(
           'titulo' => 'Interstellar',
+          'descripcion' => 'A group of scientists and explorers, led by Cooper, embark on a space journey to find a place with the necessary conditions to replace Earth and start a new life there. The Earth is coming to an end and this group needs to find a planet beyond our galaxy that guarantees the future of the human race.',
           'anho' => '2014',
-          'tipo' => 'película',
-          'fecha_created' => $now
+          'tipo' => 'movie',
+          'img_url' => 'assets/img/interestellar_portada.jpg',
+          
         ),
           'elemento4' => array(
             'titulo' => 'Death Note',
+            'descripcion' => 'A malevolent book (Death Note) falls into the hands of Yagami Light, a 17-year-old boy. He finds this black notebook one day in the playground of his school. That book has clear instructions and contains dark magic: if someone writes a name in its pages, that person dies within seconds.',
             'anho' => '2006',
             'tipo' => 'serie',
-            'fecha_created' => $now
+            'img_url' => 'assets/img/deathnote_portada.jpg',
+            
           ),
           'elemento5' => array(
             'titulo' => 'American Sniper',
+            'descripcion' => 'Chris Kyle, a Marine in the United States Army Special Operations Group, has the mission of protecting his comrades, ending the lives of anyone who could put them in danger. The film is based on the memoir by Marine Chris Kyle who broke the record for kills as a US Army sniper during the Iraq War.',
             'anho' => '2014',
-            'tipo' => 'película',
-            'fecha_created' => $now
+            'tipo' => 'movie',
+            'img_url' => 'assets/img/americasniper_portada.jpg',
         )
         
     );
@@ -60,32 +71,34 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
         $titulo = $elemento['titulo'];
         $anho = $elemento['anho'];
         $tipo = $elemento['tipo'];
-        $fecha_created = $elemento['fecha_created'];
-        $insert = "INSERT INTO elemento (titulo,anho,tipo,fecha_created,reg_date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)";
+        //$fecha_created = $elemento['fecha_created'];
+        $descripcion = $elemento['descripcion'];
+        $img_url = $elemento['img_url'];
+        $insert = "INSERT INTO elemento (titulo,descripcion,anho,tipo,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 
         // Preparación de la consulta
         $statement = $conn->prepare($insert);
         if ($statement) {
             // Enlazar parámetros y ejecutar la consulta
-            $statement->bind_param("ssss", $titulo, $anho, $tipo, $fecha_created);
+            $statement->bind_param("sssss", $titulo,$descripcion, $anho, $tipo, $img_url);
             if ($statement->execute()) {
                 echo "Insert of ".$indice." done <br>";
             } else {
                 // Manejo de errores
-                echo "Error al ejecutar la consulta: " . $statement->error;
+                echo "Error trying to exec insert: " . $statement->error;
             }
             // Cerrar la declaración
             $statement->close();
         } else {
             // Manejo de errores
-            echo "Error en la preparación de la consulta: " . $conn->error;
+            echo "Error preparing query: " . $conn->error;
         }
 
     }
      
 
     }else{
-        echo "Error al crear tabla " . $conn->error;
+        echo "Error creating table elemento " . $conn->error;
     }
 
     $conn->close();

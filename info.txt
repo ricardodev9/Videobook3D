@@ -3,4 +3,6 @@
 3.- Crear entorno virtual y descargar requirements.txt
 4.- Crear un index.php que contenga el /home de nuestro website. 
 Hacer un header que contenga: la foto de perfil del usuario y un desplegable con /home,/favoritos,mis puntuaciones,/salir o solo /login si no existe usuario
-5.-Creamos una clase para la base de datos 
+5.-Creamos la clase Elemento para los elementos de la base de datos
+Falta añadir atributos como descripción, la imagen
+6.-Estructurar las box de los productos.
