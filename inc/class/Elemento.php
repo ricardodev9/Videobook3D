@@ -4,6 +4,7 @@
 */
 class Elemento{
     public $id;
+    public $id_imdb;
     public $titulo;
     public $descripcion;
     public $anho;
@@ -14,8 +15,9 @@ class Elemento{
    
     //we need to know if class attr require date_created
 
-    public function __construct($id,$titulo,$descripcion,$anho,$tipo,$img_url,$fecha_created) {
+    public function __construct($id,$id_imdb,$titulo,$descripcion,$anho,$tipo,$img_url,$fecha_created) {
         $this->id = $id;
+        $this->id_imdb = $id_imdb;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->anho = $anho;
@@ -45,7 +47,25 @@ class Elemento{
 
         return $this;
     }
+    /**
+     * Get the value of id_imdb
+     */ 
+    public function getId_imdb()
+    {
+        return $this->id_imdb;
+    }
 
+    /**
+     * Set the value of id_imdb
+     *
+     * @return  self
+     */ 
+    public function setId_imdb($id_imdb)
+    {
+        $this->id_imdb = $id_imdb;
+
+        return $this;
+    }
     /**
      * Get the value of titulo
      */ 
@@ -169,9 +189,11 @@ class Elemento{
     public function getDescripcionFormatted($descripcion){
         $desc_formatted = $descripcion;
         if(strlen($this->descripcion) > 200){
-            $desc_formatted = substr($this->descripcion, 0, 200) . "..."; 
+            $desc_formatted = substr($this->descripcion, 0, 169) . "..."; 
         }
         return $desc_formatted;
     }
+
+
 }
 ?>
