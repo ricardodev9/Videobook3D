@@ -2,3 +2,6 @@ flask
 cinemagoer
 jsonify
 xmltodict
+Flask-CORS
+jsonify
+requests

@@ -109,22 +109,23 @@ require_once 'conf.php';
             <?php 
             $elementos = get_elements_sql($conn);
             foreach($elementos as $elemento){
-                    //echo $elemento->getTitulo()."<br>";
                 ?>
-                    <div class="cellphone-container">
+                <input type="hidden" id="id_imdb" value="<?=$elemento->getId_imdb()?>">
+                    <div class="cellphone-container" id="cardbox_<?=$elemento->getId_imdb()?>">
                         <div class="movie-img">
                             <img src="<?=$elemento->getImg_url()?>" alt="portada elemento">
                         </div>
                         <div class="movie-details">
                         <h2><?=$elemento->getTitulo()?></h2>
+                        
                         <p class="desc"><?=$elemento->getDescripcionFormatted($elemento->getDescripcion())?></p>
-                        <p class="director">Director: Christopher Nolan</p>
-                        <p class="casting">Stars: Matthew McConaughey, Anne Hathaway, Jessica Chastain</p>
+                        <p class="director" id="director_<?=$elemento->getId_imdb()?>"><img src="assets/img/loading.gif" class="loading_gif" alt="loading"></p>
+                        <p class="casting" id="casting_<?=$elemento->getId_imdb()?>"><img src="assets/img/loading.gif" class="loading_gif" alt="loading"></p>
 
                     </div>
-                    <div class="action-btn">
+                    <!-- <div class="action-btn">
                             <a href="#" class="watch-btn">Watch Now</a>
-                        </div>
+                        </div> -->
                 </div>
                 <?php
             }

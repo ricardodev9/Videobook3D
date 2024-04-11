@@ -6,3 +6,4 @@ Hacer un header que contenga: la foto de perfil del usuario y un desplegable con
 5.-Creamos la clase Elemento para los elementos de la base de datos
 Falta añadir atributos como descripción, la imagen
 6.-Estructurar las box de los productos.
+7.-El js de /home busca los ids de los elementos de la página y hace una llamada a la api de imdb(cinemagoer) para recopilar información 
