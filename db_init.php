@@ -13,6 +13,8 @@ if ($conn->connect_error) {
     // sql to create table
 $sql = "CREATE TABLE IF NOT EXISTS elemento (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_imdb int(10) NOT NULL, 
+    UNIQUE (id_imdb),
     titulo VARCHAR(30) NOT NULL,
     descripcion VARCHAR (300) NOT NULL,
     anho VARCHAR(30) NOT NULL,
@@ -27,6 +29,7 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
       //$now = date("Y-m-d H:i:s");
       $elementos = array(
         'elemento1' => array(
+            'id_imdb' => "0332280",
             'titulo' => 'The Notebook',
             'descripcion' => 'Love story between Allie Hamilton and Noah Calhoun and remembered in a nursing home, decades after it happened. Based on the book by Nicholas Sparks.',
             'anho' => '2004',
@@ -35,7 +38,8 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
             
         ),
         'elemento2' => array(
-            'titulo' => 'Fast and Furious 10',
+            'id_imdb' => "5433140",
+            'titulo' => 'Fast & Furious X',
             'descripcion' => 'Fast X is an American action film directed by Louis Leterrier and written by Justin Lin and Dan Mazeau. It is the sequel to F9, the tenth main installment and the eleventh installment overall of the Fast & Furious franchise.',
             'anho' => '2023',
             'tipo' => 'movie',
@@ -43,6 +47,7 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
             
         ),
         'elemento3' => array(
+          'id_imdb' => "0816692",
           'titulo' => 'Interstellar',
           'descripcion' => 'A group of scientists and explorers, led by Cooper, embark on a space journey to find a place with the necessary conditions to replace Earth and start a new life there. The Earth is coming to an end and this group needs to find a planet beyond our galaxy that guarantees the future of the human race.',
           'anho' => '2014',
@@ -51,6 +56,7 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
           
         ),
           'elemento4' => array(
+            'id_imdb' => "0877057",
             'titulo' => 'Death Note',
             'descripcion' => 'A malevolent book (Death Note) falls into the hands of Yagami Light, a 17-year-old boy. He finds this black notebook one day in the playground of his school. That book has clear instructions and contains dark magic: if someone writes a name in its pages, that person dies within seconds.',
             'anho' => '2006',
@@ -59,6 +65,7 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
             
           ),
           'elemento5' => array(
+            'id_imdb' => "2179136",
             'titulo' => 'American Sniper',
             'descripcion' => 'Chris Kyle, a Marine in the United States Army Special Operations Group, has the mission of protecting his comrades, ending the lives of anyone who could put them in danger. The film is based on the memoir by Marine Chris Kyle who broke the record for kills as a US Army sniper during the Iraq War.',
             'anho' => '2014',
@@ -68,19 +75,20 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
         
     );
     foreach($elementos as $indice => $elemento){
+        $id_imdb = $elemento['id_imdb'];
         $titulo = $elemento['titulo'];
         $anho = $elemento['anho'];
         $tipo = $elemento['tipo'];
         //$fecha_created = $elemento['fecha_created'];
         $descripcion = $elemento['descripcion'];
         $img_url = $elemento['img_url'];
-        $insert = "INSERT INTO elemento (titulo,descripcion,anho,tipo,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $insert = "INSERT INTO elemento (id_imdb,titulo,descripcion,anho,tipo,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 
         // Preparación de la consulta
         $statement = $conn->prepare($insert);
         if ($statement) {
             // Enlazar parámetros y ejecutar la consulta
-            $statement->bind_param("sssss", $titulo,$descripcion, $anho, $tipo, $img_url);
+            $statement->bind_param("ssssss", $id_imdb ,$titulo,$descripcion, $anho, $tipo, $img_url);
             if ($statement->execute()) {
                 echo "Insert of ".$indice." done <br>";
             } else {
