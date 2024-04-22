@@ -1,5 +1,5 @@
 #API para obtener informacón de los elementos: películas, series y libros
-
+import flask
 from flask import Flask, request, jsonify
 import requests
 import imdb
@@ -14,66 +14,59 @@ app =  Flask(__name__)
 CORS(app)  # Habilitar CORS para todos los endpoints
 # home route that returns below text when root url is accessed
 
+# def search_element(id):
+#     cine = imdb.IMDb()
+#     # items = cine.get_movie(id)
+#     res = []
+#     for i in id:
+#         items = cine.get_movie(i)
+#         res.append({i : items})
+#     return res
+
+# @app.route("/", methods=['GET','POST'])    
+# def show_element():
+#     try:
+#         id_imdb = request.form.getlist('ids_imdb[]')
+#         results = []
+#         movies = search_element(id_imdb)
+#         for movie in movies:  
+#             # Iteramos sobre cada elemento en la lista de diccionarios
+#             for id, info in movie.items():
+#                 results.append({
+#                     'ID': id,  # Utilizamos el ID del diccionario como ID del resultado
+#                     'Título': info.get('title'),
+#                     'Año': info.get('year'),
+#                     'Tipo': info.get('kind')
+#                 })
+            
+#         return jsonify({"type":"ok","msg":results})
+#     except requests.RequestException as e:
+#         # Manejar cualquier error de solicitud
+#         return jsonify({
+#             "success": False,
+#             "message": f"Error al realizar la solicitud a la API de OpenWeatherMap: {str(e)}"
+#         })           
 def search_element(id):
     cine = imdb.IMDb()
+    # items = cine.get_movie(id)
+   
     items = cine.get_movie(id)
-    #items = cine.search_movie(name)
-    
+        
     return items
-        
-    #items_json = []
+
+@app.route("/<id_imdb>", methods=['GET','POST'])    
+def show_element(id_imdb):
+    #ids_imdb = request.form.getlist('ids_imdb[]')
     
-    # try:
-       
-    #     item_info = {
-    #         'id' : item['id'],
-    #         'title': item['title'],
-    #         'year': item['year'],
-    #         'kind': item['kind'],
-    #         'cover_url' : item['cover_url']
-    #         # Agrega otros atributos según sea necesario
-    #     }
-    #     items_json.append(item_info)  
-    #     print(item['title'])
-@app.route("/", methods=['POST'])    
-def show_element():
-    try:
-        ids_imdb = request.form.getlist('ids_imdb')
-        
-        id='332280'
-        #elements = search_element(id)
-        results = []
-        for ids in ids_imdb:
-            results.append(ids)
-        
-        # Recorrer los elementos y obtener su información
-        
-        # for element in elements:
-        #     # print("ID:", element.getID())  # Obtener el ID del elemento
-        #     results.append({
-                
-        #         'Título': element['title'],
-        #         'año': element['year'],
-        #         'Tipo': element['kind']
-        #     })
-        
-        # results = {
-        #     'id' : id,
-        #     'titulo' : elements.get('title'),
-        #     'año' : elements.get('year'),
-        #     'tipo' : elements.get('kind')
-        # }
-        return jsonify({"message": results})    
-    except requests.RequestException as e:
-    # Manejar cualquier error de solicitud
-        return jsonify({
-            "success": False,
-            "message": f"Error al realizar la solicitud a la API de OpenWeatherMap: {str(e)}"
-        })    
-        
-    
-    #     print()  # Imprimir una línea en blanco entre cada elemento
-            
- 
+    #for id in ids_imdb:
+    cine = search_element(id_imdb)#id='332280')
+    result = []
+    # for per in cine['cast']:
+    #     #print(per.personID)
+    #     result.append({
+    #         per.personID : per['name']
+    #     })
+    return jsonify({"type" : "ok" , "msg" : id_imdb})
+
 if __name__ == '__main__':  
    app.run(debug=True)
