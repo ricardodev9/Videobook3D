@@ -5,3 +5,4 @@ xmltodict
 Flask-CORS
 jsonify
 requests
+flask_cors
