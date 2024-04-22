@@ -9,19 +9,21 @@ class Elemento{
     public $descripcion;
     public $anho;
     public $tipo;
+    public $duracion;
     public $img_url;
     public $fecha_created;
     
    
     //we need to know if class attr require date_created
 
-    public function __construct($id,$id_imdb,$titulo,$descripcion,$anho,$tipo,$img_url,$fecha_created) {
+    public function __construct($id,$id_imdb,$titulo,$descripcion,$anho,$tipo,$duracion,$img_url,$fecha_created) {
         $this->id = $id;
         $this->id_imdb = $id_imdb;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->anho = $anho;
         $this->tipo = $tipo;
+        $this->duracion = $duracion;
         $this->img_url = $img_url;
         $this->fecha_created = $fecha_created;
         
@@ -195,5 +197,25 @@ class Elemento{
     }
 
 
+
+    /**
+     * Get the value of duracion
+     */ 
+    public function getDuracion()
+    {
+        return $this->duracion;
+    }
+
+    /**
+     * Set the value of duracion
+     *
+     * @return  self
+     */ 
+    public function setDuracion($duracion)
+    {
+        $this->duracion = $duracion;
+
+        return $this;
+    }
 }
 ?>
