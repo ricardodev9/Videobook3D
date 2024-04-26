@@ -135,12 +135,13 @@ body {
     }
     
       .movie-details .casting, .movie-details .tipo,  .movie-details .anho, .movie-details .director , .movie-details .duracion{
-        display: flex;
+        
         font-size: 17px;
       }
       .movie-details .desc {
         display: flex; 
       }
+      
 
       .action-btn {
         
@@ -173,4 +174,19 @@ body {
         transition: 0.5s;
       }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 }

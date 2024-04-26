@@ -49,24 +49,59 @@ CORS(app)  # Habilitar CORS para todos los endpoints
 def search_element(id):
     cine = imdb.IMDb()
     # items = cine.get_movie(id)
-   
-    items = cine.get_movie(id)
-        
+    try:
+        items = cine.get_movie(id)
+    except IMDbError as e:
+        items = []
     return items
 
-@app.route("/<id_imdb>", methods=['GET','POST'])    
-def show_element(id_imdb):
-    #ids_imdb = request.form.getlist('ids_imdb[]')
-    
+@app.route("/buscar", methods=['GET','POST'])    
+def show_element():
+    # ia = imdb.IMDb()
+    id_imdb = request.form.get('id_imdb')
+    # movie = ia.get_movie(id_imdb)
+
+    # return jsonify({"type" : "ok" , "msg" : "123"})
     #for id in ids_imdb:
+    
     cine = search_element(id_imdb)#id='332280')
     result = []
-    # for per in cine['cast']:
-    #     #print(per.personID)
-    #     result.append({
-    #         per.personID : per['name']
-    #     })
-    return jsonify({"type" : "ok" , "msg" : id_imdb})
+    for per in cine['cast']:
+        #print(per.personID)
+        result.append({
+            'id' : per.personID,
+             'name': per['name']
+        })
+    for genre in cine['genres']:
+        result.append({
+            'generos' : genre
+        })
+    
+    return jsonify({"type" : "ok" , "msg" : result})
 
+
+#buscar persona:
+# person = ia.get_person('0000206')
+# person['name']
+# 'Keanu Reeves'
+# person['birth date']
+# '1964-9-2'
+# company = ia.get_company('0017902')
+# company['name']
+# 'Pixar Animation Studios'
+
+
+# actor = movie['cast'][6]
+# actor
+# actor.notes
+# '(as Warren Kemmerling)'
+
+
+
+# julia = i.get_person('0000210')
+# for job in julia['filmography'].keys():
+#     print('# Job: ', job)
+#     for movie in julia['filmography'][job]:
+#         print('\t%s %s (role: %s)' % (movie.movieID, movie['title'], movie.currentRole))
 if __name__ == '__main__':  
    app.run(debug=True)

@@ -3,24 +3,19 @@
  */
 $(document).ready(function() {
     // Hacer una solicitud GET a la ruta /all de tu servidor Flask cuando la página se cargue
-    var box_elementos = $('[id="id_imdb"]');
-    var array_ids = Array()
-    box_elementos.each(function(){
-        var imdb = $(this).val();
-        array_ids.push(imdb)
-    })
-
-    
+    var id_imdb = $('#id_imdb');
     var datos = {
-        'ids_imdb' : array_ids
+        'id_imdb' : id_imdb.val()
     }
-    console.log(datos);
+   
+
     $.ajax({
-        url: 'http://localhost:5000/',
+        url: 'http://localhost:5000/buscar',
         type: "POST",
-        contentType: 'application/json',
+        //contentType: 'application/json',
         data : datos,
         success: function(response) {
+            
             console.log(response);
             // // Manejar los datos recibidos
             // if (data) {

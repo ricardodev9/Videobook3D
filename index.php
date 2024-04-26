@@ -14,7 +14,7 @@ require_once 'conf.php';
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- js del home -->
-    <script src="assets/js/home.js"></script>
+    <!-- <script src="assets/js/home.js"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -109,7 +109,46 @@ require_once 'conf.php';
         <div class="container">
             <?php
         if(isset($_GET['id_imdb'])){
-            echo "hola";
+            /**
+             * Create html for api 
+             */
+            $id_imdb = $_GET['id_imdb'];
+            ?>
+            <input type="hidden" id="id_imdb" value="<?=$_GET['id_imdb']?>">
+            <script src="assets/js/imdb.js"></script>
+
+            <?php
+            $elementos = get_element_by_id($conn,$id_imdb);
+            
+            /*
+            foreach($elementos as $elemento){
+                ?>
+                <input type="hidden" id="id_imdb" value="<?=$elemento->getId_imdb()?>">
+                    <div class="cellphone-container" id="cardbox_<?=$elemento->getId_imdb()?>">
+                        <div class="movie-img">
+                            <img src="<?=$elemento->getImg_url()?>" class="img_portada" alt="portada elemento" style="border-top-left-radius:5px; border-top-right-radius : 5px">
+                        </div>
+                        <div class="movie-details">
+                        <h2><?=$elemento->getTitulo()?></h2>
+                        
+                        <p class="desc"><?=$elemento->getDescripcionFormatted($elemento->getDescripcion())?></p><br>
+                        <!-- <p class="director" id="director_<?//=$elemento->getId_imdb()?>"></p>
+                        <p class="casting" id="casting_<?//=$elemento->getId_imdb()?>"></p> -->
+                        <p class="tipo" id="tipo_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-tag" ></i>&nbsp&nbsp <?=$elemento->getTipo()?></p>
+                        <p class="anho" id="anho_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-calendar-days"></i>&nbsp&nbsp<?=$elemento->getAnho()?></p>
+                        <p class="duracion" id="duracion_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-clock"></i>&nbsp&nbsp<?=$elemento->getDuracion()?></p>
+                        <br>
+                        <form action="?id_imdb=<?=$elemento->getId_imdb()?>" method = "POST">
+                            <button class="btn_action" id="btn_info" >Ver más</button>
+                        </form>
+                    </div>
+                    <!-- <div class="action-btn">
+                            <a href="#" class="watch-btn">Watch Now</a>
+                        </div> -->
+                </div>
+                <?php
+            }
+            */
         }
         else{
 
