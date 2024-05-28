@@ -8,3 +8,5 @@ Falta añadir atributos como descripción, la imagen
 6.-Estructurar las box de los productos.
 7.-El js de /home busca los ids de los elementos de la página y hace una llamada a la api de imdb(cinemagoer) para recopilar información
  => ESTO TARDA DE 5 A 10 SEGUNDOS, POR LO QUE VAMOS A OPTIMIZAR ESTA PARTE EJECUTANDOLO SOLO CUANDO SE TRATE DE UN SOLO ELEMENTO
+8.- Cuando se muestre un solo elemento, debemos estructurar el html y pasarle contenido desde el index.php hacia la página individual
+ para que no cargue todo desde la API. Hay que hacer un controller
