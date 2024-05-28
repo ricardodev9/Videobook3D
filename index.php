@@ -100,7 +100,7 @@ require_once 'conf.php';
 	<section>
         <?php
 
-        $conn = new mysqli($DB_HOST, $DB_USER ,$DB_PASS , $DB_NAME);//$servername, $username, $password, $dbname
+        $conn = new mysqli($DB_HOST, $DB_USER ,$DB_PASS , $DB_NAME,$DB_PORT);//$servername, $username, $password, $dbname
         // Check connection
         if ($conn->connect_error) {
           die("Connection failed: " . $conn->connect_error);
@@ -112,43 +112,45 @@ require_once 'conf.php';
             /**
              * Create html for api 
              */
+            if(isset($_POST['titulo']) && isset($_POST['desc']) && isset($_POST['anho']) && isset($_POST['duracion'])){
             $id_imdb = $_GET['id_imdb'];
+            $img_url = $_POST['imagen'];
+            $titulo = $_POST['titulo'];
+            $desc = $_POST['desc'];
+            $anho = $_POST['anho'];
+            $duracion = $_POST['duracion'];
             ?>
             <input type="hidden" id="id_imdb" value="<?=$_GET['id_imdb']?>">
             <script src="assets/js/imdb.js"></script>
 
-            <?php
-            $elementos = get_element_by_id($conn,$id_imdb);
+            <div class=" lg:py-12 lg:flex lg:justify-center s">
+                <div class=" lg:w-full lg:flex lg:shadow-xl lg:rounded-lg">
+            <div class="lg:w-1/2 flex items-center justify-center">
+                <img src="assets/img/thenotebook_portada.jpg" alt="Descripción de la imagen" class="h-64 w-50  lg:h-full object-cover">
+            </div>
+
+        <div class=" px-4 lg:w-1/2">
+            <h2 class="text-3xl text-gray-800 font-bold"><?=$titulo?></h2>
             
-            /*
-            foreach($elementos as $elemento){
-                ?>
-                <input type="hidden" id="id_imdb" value="<?=$elemento->getId_imdb()?>">
-                    <div class="cellphone-container" id="cardbox_<?=$elemento->getId_imdb()?>">
-                        <div class="movie-img">
-                            <img src="<?=$elemento->getImg_url()?>" class="img_portada" alt="portada elemento" style="border-top-left-radius:5px; border-top-right-radius : 5px">
-                        </div>
-                        <div class="movie-details">
-                        <h2><?=$elemento->getTitulo()?></h2>
-                        
-                        <p class="desc"><?=$elemento->getDescripcionFormatted($elemento->getDescripcion())?></p><br>
-                        <!-- <p class="director" id="director_<?//=$elemento->getId_imdb()?>"></p>
-                        <p class="casting" id="casting_<?//=$elemento->getId_imdb()?>"></p> -->
-                        <p class="tipo" id="tipo_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-tag" ></i>&nbsp&nbsp <?=$elemento->getTipo()?></p>
-                        <p class="anho" id="anho_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-calendar-days"></i>&nbsp&nbsp<?=$elemento->getAnho()?></p>
-                        <p class="duracion" id="duracion_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-clock"></i>&nbsp&nbsp<?=$elemento->getDuracion()?></p>
-                        <br>
-                        <form action="?id_imdb=<?=$elemento->getId_imdb()?>" method = "POST">
-                            <button class="btn_action" id="btn_info" >Ver más</button>
-                        </form>
-                    </div>
-                    <!-- <div class="action-btn">
-                            <a href="#" class="watch-btn">Watch Now</a>
-                        </div> -->
-                </div>
-                <?php
-            }
-            */
+            <p class="mt-4 text-gray-600"><span class="text-black">Sinopsis:</span>
+                <br><?=$desc?></p>
+            
+            <p class="mt-4 text-gray-600"><span class="text-black">Año: </span><?=$anho?></p>
+
+            <p class="mt-4 text-gray-600"><span class="text-black">Duración: </span><?=$duracion?></p>
+            
+            <div class="mt-8">
+                <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <?php
+            }else{
+                echo "boton para volver atrás";
+                
+            }   
         }
         else{
 
@@ -170,7 +172,13 @@ require_once 'conf.php';
                         <p class="anho" id="anho_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-calendar-days"></i>&nbsp&nbsp<?=$elemento->getAnho()?></p>
                         <p class="duracion" id="duracion_<?=$elemento->getId_imdb()?>"><i class="fa-solid fa-clock"></i>&nbsp&nbsp<?=$elemento->getDuracion()?></p>
                         <br>
-                        <form action="?id_imdb=<?=$elemento->getId_imdb()?>" method = "POST">
+                        <form action="?id_imdb=<?=$elemento->getId_imdb()?>" method = "POST">   
+                            <input type="hidden" name="id_imdb" value="<?=$elemento->getId_imdb()?>"/>
+                            <input type="hidden" name="imagen" value="<?=$elemento->getImg_url()?>" />
+                            <input type="hidden" name="titulo" value="<?=$elemento->getTitulo()?>"/>
+                            <input type="hidden" name="desc" value="<?=$elemento->getDescripcion()?>"/>
+                            <input type="hidden" name="anho" value="<?=$elemento->getAnho()?>"/>
+                            <input type="hidden" name="duracion" value="<?=$elemento->getDuracion()?>"/>
                             <button class="btn_action" id="btn_info" >Ver más</button>
                         </form>
                     </div>

@@ -30,7 +30,8 @@ body {
         /*background-color: yellow;*/
         /* Color de fondo gris con transparencia */
 
-        background-color: rgba(128, 128, 128, 0.6); /* Gris semi-transparente */
+        /*background-color: rgba(128, 128, 128, 0.6);  Gris semi-transparente */
+        background-color: rgb(226 232 240);
         border-radius: 1em;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 17pt;
@@ -96,12 +97,12 @@ body {
       }
 
       
-      .movie-img {
+      .cellphone-container .movie-img {
         width: 100%; /* Asegura que la imagen ocupe todo el ancho del contenedor */
         height: auto; /* Permite que la altura se ajuste automáticamente según el ancho */
       }
       
-      .movie-img img {
+      .cellphone-container .movie-img img {
         display: block; /* Asegura que la imagen sea un elemento de bloque */
         width: 100%; /* Establece que la imagen ocupe todo el ancho del contenedor */
         height: 350px; /* Permite que la altura se ajuste automáticamente según el ancho */
@@ -173,13 +174,6 @@ body {
         height: 400px;
         transition: 0.5s;
       }
-
-
-
-
-
-
-
 
 
 
