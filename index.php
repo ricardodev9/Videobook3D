@@ -129,15 +129,29 @@ require_once 'conf.php';
                 <img src="assets/img/thenotebook_portada.jpg" alt="Descripción de la imagen" class="h-64 w-50  lg:h-full object-cover">
             </div>
 
-        <div class=" px-4 lg:w-1/2">
+            <div class=" px-4 lg:w-1/2">
             <h2 class="text-3xl text-gray-800 font-bold"><?=$titulo?></h2>
             
-            <p class="mt-4 text-gray-600"><span class="text-black">Sinopsis:</span>
+            <p class="mt-4 text-gray-600"><span class="text-black">Sinopsis: </span> <span id="generos"><img src="assets/img/loading.gif" alt="" class="loading_gif"></span>
                 <br><?=$desc?></p>
-            
+                
             <p class="mt-4 text-gray-600"><span class="text-black">Año: </span><?=$anho?></p>
 
-            <p class="mt-4 text-gray-600"><span class="text-black">Duración: </span><?=$duracion?></p>
+            <p class="mt-4 text-gray-600" id="p_duracion"><span class="text-black">Duración: </span><?=$duracion?></p>
+
+            <!-- Aquí va el rating: Esto se creará después de hacer el ajax -->
+            <div class="rating_stars" id="div_rating_stars">
+                <img src="assets/img/loading.gif" alt="" class="loading_gif">
+            </div>
+            
+            <!-- FIN rating -->
+
+            <!-- Aquí va los productores y compañías: Esto se creará después de hacer el ajax -->
+            <div class="producers" id="div_producers">
+                <img src="assets/img/loading.gif" alt="" class="loading_gif">
+            </div>
+            <!-- FIN producers -->
+            <i class="fa-solid fa-star"></i>
             
             <div class="mt-8">
                 <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>

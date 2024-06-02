@@ -3,12 +3,13 @@ import flask
 from flask import Flask, request, jsonify
 import requests
 import imdb
-import pprint
 import json
 import xmltodict
 from imdb import IMDbError
 import itertools
 from flask_cors import CORS
+from inspect import getmembers
+from pprint import pprint
 
 app =  Flask(__name__)
 CORS(app)  # Habilitar CORS para todos los endpoints
@@ -55,30 +56,59 @@ def search_element(id):
         items = []
     return items
 
+#método para obtener la compaía de la película
+#error: no recupera el nombre, es null siempre
+def get_company_by_movieID(id_imdb):
+    cine = imdb.IMDb()
+    try:
+        comp_data = cine.get_company(id_imdb)
+        company = {
+            'name': comp_data.get('name','N/A'),
+            'id': comp_data.getID()
+        }
+    except IMDbError as e:
+        company = {}
+    return company
+
+#recogemos la información del método search_element
+#guardamos el cast en un array 
+#guardamos los géneros en un array
+#guardmamos la compañía en un array
+#guardamos todo en un array
 @app.route("/buscar", methods=['GET','POST'])    
 def show_element():
-    # ia = imdb.IMDb()
+    ia = imdb.IMDb()
     id_imdb = request.form.get('id_imdb')
-    # movie = ia.get_movie(id_imdb)
+    cine = ia.get_movie(id_imdb)
+    result = {
+        'cast': [],
+        'genres': [],
+        'rating': None,
+        'producers': [],
+        'companies': []
+    }
 
+    if 'cast' in cine:
+        result['cast'] = [{"id": per.personID, "name": per['name']} for per in cine['cast']]
+    
+    if 'genres' in cine:
+        result['genres'] = cine['genres']
+    
+    if 'rating' in cine:
+        result['rating'] = {"rating": cine['rating']}
+    
+    if 'producer' in cine:
+        result['producers'] = [{"id": prod.personID, "name": prod['name']} for prod in cine['producer']]
+    
+    if 'production companies' in cine:
+        result['companies'] = [{"id": comp.companyID, "name": comp['name']} for comp in cine['production companies']]
+    
+    return jsonify(result)
+
+    # ia = imdb.IMDb()
+    # companies = ia.get_company('0017902')
+    # pprint(getmembers(ia.get_company_infoset()))
     # return jsonify({"type" : "ok" , "msg" : "123"})
-    #for id in ids_imdb:
-    
-    cine = search_element(id_imdb)#id='332280')
-    result = []
-    for per in cine['cast']:
-        #print(per.personID)
-        result.append({
-            'id' : per.personID,
-             'name': per['name']
-        })
-    for genre in cine['genres']:
-        result.append({
-            'generos' : genre
-        })
-    
-    return jsonify({"type" : "ok" , "msg" : result})
-
 
 #buscar persona:
 # person = ia.get_person('0000206')
