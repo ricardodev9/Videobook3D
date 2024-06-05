@@ -73,4 +73,9 @@ function get_element_by_id($conn, $id){
     }
 }
 
+/**
+ * Método para validar los $_POST del form de index.php
+ */
+//function validar_array
+
 ?>

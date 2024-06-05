@@ -123,42 +123,71 @@ require_once 'conf.php';
             <input type="hidden" id="id_imdb" value="<?=$_GET['id_imdb']?>">
             <script src="assets/js/imdb.js"></script>
 
-            <div class=" lg:py-12 lg:flex lg:justify-center s">
-                <div class=" lg:w-full lg:flex lg:shadow-xl lg:rounded-lg">
-            <div class="lg:w-1/2 flex items-center justify-center">
-                <img src="assets/img/thenotebook_portada.jpg" alt="Descripción de la imagen" class="h-64 w-50  lg:h-full object-cover">
-            </div>
+            <div class=" lg:py-12 lg:flex lg:justify-center text-lg">
+                <div class=" lg:w-full lg:flex lg:rounded-lg">
+                    <div class="lg:w-1/2 flex items-center justify-center">
+                        <img src="<?=$img_url?>" alt="Descripción de la imagen" class="h-64 w-50  lg:h-full object-cover">
+                    </div>
 
-            <div class=" px-4 lg:w-1/2">
-            <h2 class="text-3xl text-gray-800 font-bold"><?=$titulo?></h2>
+                    <div class=" px-4 lg:w-1/2">
+                        <h2 class="text-3xl text-gray-800 font-bold"><?=$titulo?></h2>
             
-            <p class="mt-4 text-gray-600"><span class="text-black">Sinopsis: </span> <span id="generos"><img src="assets/img/loading.gif" alt="" class="loading_gif"></span>
-                <br><?=$desc?></p>
+                        <p class="mt-4 text-gray-600"><span class="text-black">Sinopsis: </span> <span id="generos"><img src="assets/img/loading.gif" alt="" class="loading_gif"></span>
+                        <br><?=$desc?></p>
                 
-            <p class="mt-4 text-gray-600"><span class="text-black">Año: </span><?=$anho?></p>
+                        <p class="mt-4 text-gray-600"><span class="text-black">Año: </span><?=$anho?></p>
 
-            <p class="mt-4 text-gray-600" id="p_duracion"><span class="text-black">Duración: </span><?=$duracion?></p>
+                        <p class="mt-4 text-gray-600" id="p_duracion"><span class="text-black">Duración: </span><?=$duracion?></p>
 
-            <!-- Aquí va el rating: Esto se creará después de hacer el ajax -->
-            <div class="rating_stars" id="div_rating_stars">
-                <img src="assets/img/loading.gif" alt="" class="loading_gif">
-            </div>
-            
-            <!-- FIN rating -->
+                 
+                                <!-- Aquí va el rating: Esto se creará después de hacer el ajax -->
+                        <div class="rating_stars" id="div_rating_stars">
+                            <p id="p_rating" class="mt-4 text-gray-600 text-black" >Rating: <img src="assets/img/loading.gif" alt="" class="loading_gif"></p>    
+                        
+                        </div>
 
-            <!-- Aquí va los productores y compañías: Esto se creará después de hacer el ajax -->
-            <div class="producers" id="div_producers">
-                <img src="assets/img/loading.gif" alt="" class="loading_gif">
+                        
+                        <!-- FIN rating -->
+
+                        <!-- Aquí va los productores y compañías: Esto se creará después de hacer el ajax -->
+                        <div class="mt-4 text-gray-600" id="div_producers">
+                            <p id="p_producer" class="mt-4 text-gray-600 text-black">Producers: <img src="assets/img/loading.gif" alt="" class="loading_gif"></p>
+                        </div>
+                        <!-- FIN producers -->
+                                    
+                        <div class="mt-8">
+                            <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>
+                        </div>
+                      
+                    </div>
+                </div>
+             
             </div>
-            <!-- FIN producers -->
-            <i class="fa-solid fa-star"></i>
-            
-            <div class="mt-8">
-                <a href="#" class="bg-gray-900 text-gray-100 px-5 py-3 font-semibold rounded">Start Now</a>
+           
+            <div class="extra_info">
+            <hr class="w-200 h-1 my-10 bg-black-500 dark:bg-black-700">
+                <div class="company">
+                    <h2 class="text-3xl text-gray-800 font-bold">Productoras (compañías)</h2>
+                    <div id="div_company" >
+                    <img src="assets/img/loading.gif" alt="" class="loading_gif">
+
+
+                    </div>
+                   
+                </div>
+                <br>
+                
+
+                <div class="casting">
+                    <h2 class="text-3xl text-gray-800 font-bold">Casting</h2>
+                    <div id="div_casting" class=" dark:text-gray-400">
+                    <img src="assets/img/loading.gif" alt="" class="loading_gif">
+
+
+                    </div>
+                   
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <?php
             }else{
@@ -211,7 +240,7 @@ require_once 'conf.php';
 
 
 	<footer>
-		<p>Copyright 2009 Your name</p>
+		<p></p>
 	</footer>
 
     </div>
