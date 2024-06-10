@@ -3,14 +3,23 @@
  * archivo para inicializar las tablas de la base de datos
 */
 require_once 'conf.php';
-//$con = new Database($DB_HOST, $DB_NAME, $DB_USER, $DB_PASS);
-
-$conn = new mysqli($DB_HOST, $DB_USER ,$DB_PASS , $DB_NAME);//$servername, $username, $password, $dbname
-// Check connection
+// coneccion al workbench
+$conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, '', $DB_PORT);
 if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if ($conn) {
+$dbname="videobook3d";
+$database = $conn->query("CREATE DATABASE IF NOT EXISTS ".$dbname);
+if($database === true){
+  echo "DB CREATED <br>";
 }else{
-    // sql to create table
+  echo "Error in db create <br>";
+}
+if(!$conn->select_db($dbname)){
+  die("Error al seleccionar la base de datos: " . $db->error);
+}
 $sql = "CREATE TABLE IF NOT EXISTS elemento (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     id_imdb int(10) NOT NULL, 
@@ -123,6 +132,7 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
     }
 
     $conn->close();
+    
 }
 
 
