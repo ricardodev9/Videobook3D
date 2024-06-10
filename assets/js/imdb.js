@@ -122,3 +122,4 @@ function displayMovieInfo(data,$){
         castElement
     )
 }
+

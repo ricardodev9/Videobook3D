@@ -84,7 +84,7 @@ body {
       
         max-width: 420px;
         max-height: 868px;
-        background-color: #4b4445;
+        background-color: rgb(100 116 139);
         margin: 1em;
         border-radius: 8px;
         box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
@@ -126,7 +126,7 @@ body {
     
     .movie-details p {
         margin: 0; /* Establece un margen entre los párrafos */
-        background-color: #4b4445; /* Color de fondo para cada párrafo */
+        /*background-color: #4b4445;  Color de fondo para cada párrafo */
         color: #e7e7e7; /* Color de texto */
         border-radius: 5px; /* Borde redondeado */
        
@@ -175,10 +175,35 @@ body {
         transition: 0.5s;
       }
 
+      .container .loading_gif{
+        display: none;
+        height: 20px;
+        width: 20px;
+      }
 
 
-
-
+      .success-msg, .error-msg, .info-msg, .warning-msg{
+        margin: 6px 0;
+        padding: 6px;
+        border-radius: 3px 3px 3px 3px;
+      }
+      .error-msg {
+        color: #D8000C;
+        background-color: #FFBABA;
+      }
+      .success-msg {
+        color: #270;
+        background-color: #DFF2BF;
+      }
+      
+      .info-msg {
+        color: #059;
+        background-color: #BEF;
+      }
+      .warning-msg {
+        color: #9F6000;
+        background-color: #FEEFB3;
+      }
 
 
 

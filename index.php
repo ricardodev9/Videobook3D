@@ -17,6 +17,7 @@ require_once 'conf.php';
     <!-- <script src="assets/js/home.js"></script> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 <body>
     
@@ -28,70 +29,22 @@ require_once 'conf.php';
 				<li>
                 <!-- BUSCADOR -->                    
 
-                    <div class="flex items-center">
-                        <input type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ps-7 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Película,serie o libro" />
-                        <button type="submit" class="inline-flex items-center py-1.5 px-2 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <div class="flex items-center">  
+                        <form action="" method="get">
+                        <input type="text" id="q" name="q" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ps-7 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Película,serie o libro" />
+                   
+                        <button type="submit" id="buscador_film" class="inline-flex items-center py-1.5 px-2 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>Buscar
                         </button>
+                        </form>
                     </div>
 
 
 
                 </li>
-                <li>
 
-
-                <div class="select_nav" >
-                <label for="select_elemento">Categoría</label>&nbsp;&nbsp;
-                    <select id="select_elemento" class="btn btn-secondary dropdown-toggle">
-                       
-                        <option value="" selected>Ninguno</option>
-                        <option value="pelicula">Película</option>
-                        <option value="serie">Serie</option>
-                        <option value="libro">Libro</option>
-                    </select>
-                </div>
-
-
-
-                </li>
-
-
-                <li>
-                <div class="select_nav">
-                <label for="select_orden">Ordenar</label>&nbsp;&nbsp;
-                    <select id="select_orden" class="btn btn-secondary dropdown-toggle">       
-                        <option value="" selected>Ninguno</option>
-                        <option value="rating">Rating</option>
-                        <option value="duracion">Duración</option>
-                            
-                        </select>
-                    </div>
-                </li>
-
-                <!-- I am going to create a new dropdown with genres info -->
-                <li>
-                <div class="select_nav">
-
-                <label for="select_genero">Género</label>&nbsp;&nbsp;
-                    <select id="select_orden" class="btn btn-secondary dropdown-toggle">       
-                        <option value="" selected>Ninguno</option>
-
-                    </select>
-                </div>
-
-                </li>
-
-                <li>
-                <div class="select_nav">
-                    <span id="eliminar_filtro"> X </span>
-                </div>
-                </li>
-                <li>
-                    <img src="assets/img/perfil2.png" alt="perfil">
-                </li>
                 
 			</ul>
 		</nav>
@@ -99,16 +52,27 @@ require_once 'conf.php';
 
 	<section>
         <?php
+        
+        // Conexión al servidor MySQL sin especificar una base de datos
+        $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, '', $DB_PORT);
 
-        $conn = new mysqli($DB_HOST, $DB_USER ,$DB_PASS , $DB_NAME,$DB_PORT);//$servername, $username, $password, $dbname
-        // Check connection
+        // Verificar conexión
         if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
+            die("Connection to MySQL server failed: " . $conn->connect_error);
         }
+
+        // Verificar si la base de datos existe
+        $result = $conn->query("SHOW DATABASES LIKE '$DB_NAME'");
+        if ($result->num_rows == 0) {
+            die("Por favor, crea la base de datos '$DB_NAME' ejecutabdo db_init.php");
+        }
+
+        // Seleccionar la base de datos
+        $conn->select_db($DB_NAME);
         ?>
         <div class="container">
             <?php
-        if(isset($_GET['id_imdb'])){
+        if(isset($_GET['id_imdb']) && $_GET['id_imdb'] != ''){
             /**
              * Create html for api 
              */
@@ -167,7 +131,7 @@ require_once 'conf.php';
             <div class="extra_info">
             <hr class="w-200 h-1 my-10 bg-black-500 dark:bg-black-700">
                 <div class="company">
-                    <h2 class="text-3xl text-gray-800 font-bold">Productoras (compañías)</h2>
+                    <h2 class="text-3xl text-gray-800 font-bold">Productoras</h2>
                     <div id="div_company" >
                     <img src="assets/img/loading.gif" alt="" class="loading_gif">
 
@@ -194,8 +158,34 @@ require_once 'conf.php';
                 echo "boton para volver atrás";
                 
             }   
-        }
-        else{
+        }else if(isset($_GET['q']) && $_GET['q'] != ''){
+            $q = $_GET['q'];
+            
+            ?>
+            <input type="hidden" name="q" id="q" value="<?=$q?>">
+            <script src="assets/js/imdb_by_name.js"></script>
+            <p id="p_loading">Obteniendo datos...</p>
+<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+   <li class="pb-3 sm:pb-4"><br>
+      <div class="flex items-center space-x-4 rtl:space-x-reverse">
+         <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+               Neil Sims
+            </p>
+            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+               email@flowbite.com
+            </p>
+         </div>
+         <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+            $320
+         </div>
+      </div>
+   </li>
+</ul>
+
+
+<?php
+        }else{
 
             $elementos = get_elements_sql($conn);
             foreach($elementos as $elemento){
