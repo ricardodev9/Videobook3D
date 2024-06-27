@@ -24,7 +24,7 @@ def search_element(id):
     return items
 
 #método para obtener la compaía de la película
-#error: no recupera el nombre, es null siempre
+
 def get_company_by_movieID(id_imdb):
     cine = imdb.IMDb()
     try:
@@ -36,6 +36,8 @@ def get_company_by_movieID(id_imdb):
     except IMDbError as e:
         company = {}
     return company
+
+
 
 #método para recoger aquellos elementos que coincidan con el buscador
 def search_elements_by_name(name):
@@ -85,25 +87,26 @@ def show_element():
     # companies = ia.get_company('0017902')
     # pprint(getmembers(ia.get_company_infoset()))
     # return jsonify({"type" : "ok" , "msg" : "123"})
-{}
+
 @app.route('/buscar_by_name', methods = ["POST","GET"])
 def buscar_by_name():
     name = request.form.get('buscador')
-    items = search_elements_by_name("marvel")
+    items = search_elements_by_name(name)
     result = {
         'items' : []
     }
     for i in items:
+   
         result['items'].append({
             'id' : i.movieID,
             'title' : i['title'],
-             'year': i.get('year', ''),  # Obtener el año si está disponible, de lo contrario, dejarlo vacío
-            'type' : i['kind']
-            })
-   
+            'year': i.get('year', ''),  # Obtener el año si está disponible, de lo contrario, dejarlo vacío
+            'type' : i['kind'],
+            'img' : i['cover url'],
 
-       # pprint(getmembers(i))
+            })
         
+    pprint(getmembers(result['cast'][0]))
     return jsonify(result)
 
 

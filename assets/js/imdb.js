@@ -89,7 +89,7 @@ function createCastElement(casting){
 //método para crear el div para lás compaías
 function displayMovieInfo(data,$){
     $('.container .loading_gif').hide();
-    console.log(data);
+
     const div_rating = $('.container #div_rating_stars #p_rating');
     const div_producers = $('.container #div_producers #p_producer');
     const div_comany = $('.container .company #div_company ');

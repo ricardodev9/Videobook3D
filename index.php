@@ -10,7 +10,7 @@ require_once 'conf.php';
     <link rel="stylesheet" href="assets/css/styles.css">
         <!-- tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <script src="assets/js/imdb_by_name.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- js del home -->
@@ -30,15 +30,15 @@ require_once 'conf.php';
                 <!-- BUSCADOR -->                    
 
                     <div class="flex items-center">  
-                        <form action="" method="get">
+                     
                         <input type="text" id="q" name="q" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 ps-7 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Película,serie o libro" />
                    
-                        <button type="submit" id="buscador_film" class="inline-flex items-center py-1.5 px-2 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button type="submit" id="buscador_film" onclick="buscarElementoByNombre()" class="inline-flex items-center py-1.5 px-2 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>Buscar
                         </button>
-                        </form>
+                        
                     </div>
 
 
@@ -70,7 +70,7 @@ require_once 'conf.php';
         // Seleccionar la base de datos
         $conn->select_db($DB_NAME);
         ?>
-        <div class="container">
+        <div class="container" id="div_padre">
             <?php
         if(isset($_GET['id_imdb']) && $_GET['id_imdb'] != ''){
             /**
@@ -158,33 +158,6 @@ require_once 'conf.php';
                 echo "boton para volver atrás";
                 
             }   
-        }else if(isset($_GET['q']) && $_GET['q'] != ''){
-            $q = $_GET['q'];
-            
-            ?>
-            <input type="hidden" name="q" id="q" value="<?=$q?>">
-            <script src="assets/js/imdb_by_name.js"></script>
-            <p id="p_loading">Obteniendo datos...</p>
-<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-   <li class="pb-3 sm:pb-4"><br>
-      <div class="flex items-center space-x-4 rtl:space-x-reverse">
-         <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-               Neil Sims
-            </p>
-            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-               email@flowbite.com
-            </p>
-         </div>
-         <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-            $320
-         </div>
-      </div>
-   </li>
-</ul>
-
-
-<?php
         }else{
 
             $elementos = get_elements_sql($conn);
@@ -227,12 +200,9 @@ require_once 'conf.php';
 
 	</section>
 
-
-
-	<footer>
-		<p></p>
-	</footer>
-
     </div>
+            <?php
+        include_once('footer.php')
+            ?>
 </body>
 </html>
