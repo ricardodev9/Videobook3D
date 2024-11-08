@@ -44,7 +44,7 @@ El usuario que tenga superpoderes podrá gestionar los elementos de VideoBook3D,
 Sobre estos elementos el administrador tiene poderes de edición, eliminar y creación.
 
 ## Contribución
-¡Gracias por considerar contribuir a mi proyecto! Apreciamos cualquier tipo de contribución, ya sea en forma de correcciones de errores, nuevas características, mejoras en la documentación o pruebas adicionales. Para asegurarnos de que las contribuciones sean efectivas y bien integradas, te pedimos seguir el siguiente proceso:
+¡Gracias por considerar contribuir a mi proyecto! Aprecio cualquier tipo de contribución, ya sea en forma de correcciones de errores, nuevas características, mejoras en la documentación o pruebas adicionales. Para asegurarnos de que las contribuciones sean efectivas y bien integradas, te pedimos seguir el siguiente proceso:
    #### Haz un fork de este repositorio en GitHub
    #### Clonar el repositorio
    git clone htttps://github.com/ricardodev9/Videobook3D.git
