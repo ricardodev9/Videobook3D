@@ -22,8 +22,7 @@ if(!$conn->select_db($dbname)){
 }
 $sql = "CREATE TABLE IF NOT EXISTS elemento (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    id_imdb int(10) NOT NULL, 
-    UNIQUE (id_imdb),
+    uuid VARCHAR(255) NOT NULL UNIQUE,
     titulo VARCHAR(30) NOT NULL,
     descripcion VARCHAR (300) NOT NULL,
     anho VARCHAR(30) NOT NULL,
@@ -87,8 +86,8 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
             'duracion' => '2h 12m',
             'img_url' => 'assets/img/americasniper_portada.jpg',
         )
-        
     );
+
     foreach($elementos as $indice => $elemento){
         $id_imdb = $elemento['id_imdb'];
         $titulo = $elemento['titulo'];
@@ -98,35 +97,29 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
         $descripcion = $elemento['descripcion'];
         $img_url = $elemento['img_url'];
         $duration = $elemento['duracion'];
-        $insert = "INSERT INTO elemento (id_imdb,titulo,descripcion,anho,tipo,duracion,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $insert = "INSERT IGNORE INTO elemento (id_imdb,titulo,descripcion,anho,tipo,duracion,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 
         // Preparación de la consulta
         $statement = $conn->prepare($insert);
         if ($statement) {
             // Enlazar parámetros y ejecutar la consulta
-            $statement->bind_param("sssssss", $id_imdb ,$titulo,$descripcion, $anho, $tipo, $duration ,$img_url);
+            $statement->bind_param("sssssss", $id_imdb, $titulo, $descripcion, $anho, $tipo, $duration, $img_url);
             if ($statement->execute()) {
                 echo "Insert of ".$indice." done <br>";
             } else {
                 // Manejo de errores
-                echo "Error trying to exec insert: " . $statement->error;
+                echo "Error trying to exec insert: " . $statement->error . "<br>";
             }
             // Cerrar la declaración
             $statement->close();
         } else {
             // Manejo de errores
-            echo "Error preparing query: " . $conn->error;
+            echo "Error preparing query: " . $conn->error . "<br>";
         }
 
     }
-    //we r going to create more info 
-    // $sql2 = "CREATE TABLE IF NOT EXISTS TABLE personajes (
-    //     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    //     id_imdb int(10) NOT NULL, 
-    //     nombre VARCHAR(100) NOT NULL,
-        
-    // )";
-
+    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/videobook3d";
+    echo "<a href='".$baseUrl."/index.php'>Inicio</a>";
     }else{
         echo "Error creating table elemento " . $conn->error;
     }
