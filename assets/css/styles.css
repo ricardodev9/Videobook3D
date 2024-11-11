@@ -71,6 +71,7 @@ body {
         min-height: 50px;
         /* Añadir una altura mínima */
     }
+
 }
 
 @media only screen and (min-width: 601px) {
@@ -165,12 +166,6 @@ body {
 
     .action-btn {
         text-align: right;
-    }
-
-    .img_portada:hover {
-        width: 500px;
-        height: 400px;
-        transition: 0.5s;
     }
 
     .container .loading_gif {
