@@ -18,14 +18,34 @@ class Videobook {
         $result = $this->conn->query($sql);
         // Verifica que se obtuvieron resultados
         if ($result->num_rows > 0) {
-            $users = [];
-            while ($user = $result->fetch_object()) {
-                $users[] = $user;
+            $videbooks = [];
+            while ($videbook = $result->fetch_object()) {
+                $videbooks[] = $videbook;
             }
-            return $users;
+            return $videbooks;
         } else {
             return [];
         }
     }
+
+    /**
+     * Get un videobook en concreto
+     */
+    function getVideobookByUuid($uuid){
+        $stmt = $this->conn->prepare("SELECT * FROM elemento WHERE uuid = ?");
+        $stmt->bind_param("s", $uuid);
+        $stmt->execute();
+        
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_object();
+        } else {
+            return null;
+        }
+        // Cerrar el statement
+        $stmt->close();
+    }
 }
+
 ?>
