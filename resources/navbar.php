@@ -1,4 +1,7 @@
 <link rel="stylesheet" href="assets/css/navbar.css">
+<?php
+ $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/videobook3d";
+?>
 <nav class="navbar">
     <div class="navbar-container container">
         <input type="checkbox" name="" id="">
@@ -8,8 +11,8 @@
             <span class="line line3"></span>
         </div>
         <ul class="menu-items">
-            <li><a href="<?=__DIR__.'/index.php'?>">Home</a></li>
-            <li><a href="<?=__DIR__.'/index.php?view=users'?>">Users</a></li>
+            <li><a href="<?=$baseUrl?>/index.php">Home</a></li>
+            <li><a href="<?=$baseUrl?>/index.php?view=users">Users</a></li>
             <li><a href="https://www.linkedin.com/in/ricardo-apaza-cueva-43b0572a1/" target="_blank">About me</a></li>
             <li><a href="mailto:ricardoapazacueva2000@gmail.com">Contact</a></li>
             <?php
