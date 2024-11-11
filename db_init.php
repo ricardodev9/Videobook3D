@@ -3,6 +3,9 @@
  * archivo para inicializar las tablas de la base de datos
 */
 require_once 'conf.php';
+require 'vendor/autoload.php';
+
+use Ramsey\Uuid\Uuid;
 // coneccion al workbench
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, '', $DB_PORT);
 if ($conn->connect_error) {
@@ -23,8 +26,9 @@ if(!$conn->select_db($dbname)){
 $sql = "CREATE TABLE IF NOT EXISTS elemento (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     uuid VARCHAR(255) NOT NULL UNIQUE,
+    uuid_session VARCHAR(255) NULL UNIQUE,
     titulo VARCHAR(30) NOT NULL,
-    descripcion VARCHAR (300) NOT NULL,
+    descripcion VARCHAR(500) NOT NULL,
     anho VARCHAR(30) NOT NULL,
     tipo VARCHAR(50),
     duracion VARCHAR(100) NOT NULL,
@@ -35,42 +39,37 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
 
     if($conn->query($sql) === true ){   
       echo "table created<br>";
-      //$now = date("Y-m-d H:i:s");
       $elementos = array(
         'elemento1' => array(
-            'id_imdb' => "0332280",
             'titulo' => 'The Notebook',
-            'descripcion' => 'Love story between Allie Hamilton and Noah Calhoun and remembered in a nursing home, decades after it happened. Based on the book by Nicholas Sparks.',
+            'descripcion' => 'Historia de amor entre Allie Hamilton y Noah Calhoun y recordada en una residencia de ancianos, décadas después de que sucediera. Basada en el libro de Nicholas Sparks.',
             'anho' => '2004',
-            'tipo' => 'movie',
+            'tipo' => 'película',
             'duracion' => '2h 1m',
             'img_url' => 'assets/img/thenotebook_portada.jpg',
             
         ),
         'elemento2' => array(
-            'id_imdb' => "5433140",
             'titulo' => 'Fast & Furious X',
-            'descripcion' => 'Fast X is an American action film directed by Louis Leterrier and written by Justin Lin and Dan Mazeau. It is the sequel to F9, the tenth main installment and the eleventh installment overall of the Fast & Furious franchise.',
+            'descripcion' => 'Fast X es una película de acción estadounidense dirigida por Louis Leterrier y escrita por Justin Lin y Dan Mazeau. Es la secuela de F9, la décima entrega principal y la undécima en total de la franquicia Fast & Furious.',
             'anho' => '2023',
-            'tipo' => 'movie',
+            'tipo' => 'película',
             'duracion' => '2h 21m',
             'img_url' => 'assets/img/fastx_portada.jpg',
             
         ),
         'elemento3' => array(
-          'id_imdb' => "0816692",
           'titulo' => 'Interstellar',
-          'descripcion' => 'A group of scientists and explorers, led by Cooper, embark on a space journey to find a place with the necessary conditions to replace Earth and start a new life there. The Earth is coming to an end and this group needs to find a planet beyond our galaxy that guarantees the future of the human race.',
+          'descripcion' => 'Un grupo de científicos y exploradores, liderados por Cooper, se embarcan en un viaje espacial para encontrar un lugar con las condiciones necesarias para sustituir a la Tierra y comenzar allí una nueva vida. La Tierra está llegando a su fin y este grupo necesita encontrar un planeta más allá de nuestra galaxia que garantice el futuro de la raza humana.',
           'anho' => '2014',
-          'tipo' => 'movie',
+          'tipo' => 'película',
           'duracion' => '2h 49m',
           'img_url' => 'assets/img/interestellar_portada.jpg',
           
         ),
           'elemento4' => array(
-            'id_imdb' => "0877057",
             'titulo' => 'Death Note',
-            'descripcion' => 'A malevolent book (Death Note) falls into the hands of Yagami Light, a 17-year-old boy. He finds this black notebook one day in the playground of his school. That book has clear instructions and contains dark magic: if someone writes a name in its pages, that person dies within seconds.',
+            'descripcion' => 'Un libro malévolo (Death Note) cae en manos de Yagami Light, un chico de 17 años. Un día encuentra este cuaderno negro en el patio de su colegio. Ese libro tiene instrucciones claras y contiene magia oscura: si alguien escribe un nombre en sus páginas, esa persona muere en cuestión de segundos.',
             'anho' => '2006',
             'tipo' => 'serie',
             'duracion' => '2 temporadas (19 y 18 capitulos)',
@@ -78,18 +77,17 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
             
           ),
           'elemento5' => array(
-            'id_imdb' => "2179136",
             'titulo' => 'American Sniper',
-            'descripcion' => 'Chris Kyle, a Marine in the United States Army Special Operations Group, has the mission of protecting his comrades, ending the lives of anyone who could put them in danger. The film is based on the memoir by Marine Chris Kyle who broke the record for kills as a US Army sniper during the Iraq War.',
+            'descripcion' => 'Chris Kyle, un marine del Grupo de Operaciones Especiales del Ejército de Estados Unidos, tiene la misión de proteger a sus compañeros, acabando con la vida de cualquiera que pueda ponerlos en peligro. La película está basada en las memorias del marine Chris Kyle, que batió el récord de muertes como francotirador del ejército estadounidense durante la guerra de Irak.',
             'anho' => '2014',
-            'tipo' => 'movie',
+            'tipo' => 'película',
             'duracion' => '2h 12m',
             'img_url' => 'assets/img/americasniper_portada.jpg',
         )
     );
 
     foreach($elementos as $indice => $elemento){
-        $id_imdb = $elemento['id_imdb'];
+        $uuid = Uuid::uuid4()->toString();
         $titulo = $elemento['titulo'];
         $anho = $elemento['anho'];
         $tipo = $elemento['tipo'];
@@ -97,13 +95,13 @@ $sql = "CREATE TABLE IF NOT EXISTS elemento (
         $descripcion = $elemento['descripcion'];
         $img_url = $elemento['img_url'];
         $duration = $elemento['duracion'];
-        $insert = "INSERT IGNORE INTO elemento (id_imdb,titulo,descripcion,anho,tipo,duracion,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+        $insert = "INSERT INTO elemento (uuid,titulo,descripcion,anho,tipo,duracion,img_url,fecha_created,reg_date) VALUES (?, ?, ?, ?, ?, ?, ?,CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 
         // Preparación de la consulta
         $statement = $conn->prepare($insert);
         if ($statement) {
             // Enlazar parámetros y ejecutar la consulta
-            $statement->bind_param("sssssss", $id_imdb, $titulo, $descripcion, $anho, $tipo, $duration, $img_url);
+            $statement->bind_param("sssssss", $uuid, $titulo, $descripcion, $anho, $tipo, $duration, $img_url);
             if ($statement->execute()) {
                 echo "Insert of ".$indice." done <br>";
             } else {
