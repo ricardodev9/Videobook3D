@@ -1,5 +1,7 @@
-    <!-- Footer -->
-    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
+
+  <!-- Footer -->
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted" id="footer">
+    <div id="footer_content">
       <!-- Section: Social media -->
       <section class="d-flex justify-content-center ">
         <!-- Left -->
@@ -41,5 +43,6 @@
         <a class="text-reset fw-bold" href="https://github.com/ricardodev9" target="_blank">Ricardodev9</a>
       </div>
       <!-- Copyright -->
+    </div>
     </footer>
     <!-- Footer -->
