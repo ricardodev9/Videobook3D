@@ -1,0 +1,73 @@
+/* Estilos generales para asegurar que el footer esté al fondo */
+html, body {
+    height: 100%; /* Aseguramos que el body y html ocupen toda la altura */
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Para apilar los elementos verticalmente */
+}
+
+/* Contenedor principal de la página */
+#homeContent {
+    flex: 1; /* Este elemento toma el espacio restante y empuja el footer hacia abajo */
+    background-color: #1f2937;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17pt;
+    padding: 1em;
+    color: #f1f5f9;
+}
+
+/* Footer al final */
+#footer {
+    background-color: #110f16 !important;
+    color: #e5e7eb;
+    padding: 1rem 0; 
+    font-size: 0.9rem;
+    text-align: center; /* Asegura que el texto se centre */
+}
+
+/* Estilo para los enlaces e iconos en el footer */
+#footer_content a {
+    color: #e5e7eb;
+    transition: color 0.3s ease;
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+#footer_content a:hover {
+    color: #facc15;
+}
+
+#footer span {
+    color: #a1a1aa;
+    font-size: 1rem;
+}
+
+#footer .p-4 {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 0.85rem;
+}
+
+#footer a.text-reset {
+    color: #e5e7eb;
+    text-decoration: none;
+}
+
+#footer a.text-reset:hover {
+    color: #facc15;
+}
+
+#footer i {
+    color: #cbd5e1;
+}
+
+/* Para pantallas grandes */
+@media only screen and (min-width: 601px) {
+    #homeContent {
+        background-color: #1f2937;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17pt;
+        padding: 1em;
+        color: #f1f5f9;
+    }
+}

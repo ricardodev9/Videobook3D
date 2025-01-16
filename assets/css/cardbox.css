@@ -1,13 +1,12 @@
-
 .cardbox {
     display: flex;
     flex-wrap: wrap;
-    background-color: #f0f2f5; /* Fondo claro y agradable */
+    background-color: #374151;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
     max-width: 100%;
-    color: #2d2d2d; /* Texto en gris oscuro */
+    color: #e5e7eb; /* Texto claro */
 }
 
 .cardbox__content {
@@ -18,13 +17,13 @@
 .cardbox__title {
     font-size: 1.75rem;
     margin: 0 0 0.5rem 0;
-    color: #1f2937; /* Título en gris más oscuro */
+    color: #f3f4f6; /* Título en blanco suave */
 }
 
 .cardbox__date {
     font-size: 0.9rem;
-    color: #b0b0b0;
-    margin-bottom: 1rem;
+    color: #a1a1aa; /* Gris claro */
+    padding-bottom: 1rem;
     display: flex;
     align-items: center;
 }
@@ -32,17 +31,16 @@
 .cardbox__bar {
     width: 50px;
     height: 3px;
-    background-color: #3b82f6; /* Barra azul suave */
+    background-color: #facc15; /* Barra amarilla suave */
     margin: 1rem 0;
-    
 }
 
 .cardbox__text {
     font-size: 0.95rem;
     line-height: 1.6;
     text-align: justify;
-    margin-bottom: 1.5rem;
-    color: #4b5563; /* Texto en gris oscuro */
+    padding-bottom: 1.5rem;
+    color: #cbd5e1; /* Gris claro */
 }
 
 .cardbox__tags {
@@ -52,16 +50,16 @@
 }
 
 .tag {
-    background: rgba(59, 130, 246, 0.15); /* Fondo de las etiquetas en azul claro */
+    background: rgba(250, 204, 21, 0.1); /* Fondo de etiqueta en amarillo claro */
     border-radius: 3px;
     padding: 5px 10px;
     font-size: 0.85rem;
     display: inline-block;
-    color: #1e40af; /* Texto de etiqueta en azul */
+    color: #facc15; /* Texto de etiqueta en amarillo */
 }
 
 .tag:hover {
-    background: rgba(83, 83, 83, 0.8);
+    background: rgba(83, 83, 83, 0.8); /* Fondo más oscuro al hacer hover */
 }
 
 .cardbox__image {
